@@ -93,27 +93,10 @@ public class RemoteMitmproxy {
 
 	public static void main(String[] args) throws InterruptedException {
 		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866);
-		remoteMitmproxy.addFlowFilter(new FlowFilter() {
-			
-			@Override
-			public void filterRequest(FlowRequest flowRequest) {
-			}
-			
-			@Override
-			public void filterResponse(FlowResponse flowResponse) {
-				FlowRequest flowRequest = flowResponse.getRequest();
-				if (flowRequest.getUrl().startsWith("https://www.baidu.com")) {
-					flowResponse.setContentAsString("就不让你访问百度，哈哈!");
-				}
-				
-				System.out.println(flowRequest.getUrl() + " response length:" +flowResponse.getContent().length);
-			}
-			
-		});
 		CookieCollectFilter cookieCollectFilter = new CookieCollectFilter();
 		remoteMitmproxy.addFlowFilter(cookieCollectFilter);
 		remoteMitmproxy.start();
-	    Thread.sleep(1000 * 60 * 1);
+	    Thread.sleep(1000 * 60 * 5);
 	    remoteMitmproxy.stop();
 	    for (Cookie cookie : cookieCollectFilter.catchCookies) {
 	    	System.out.println(cookie.getDomain() + ">>>"+ cookie.getName()+"="+cookie.getValue() +" path:"+cookie.getPath());

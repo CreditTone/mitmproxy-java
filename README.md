@@ -78,5 +78,21 @@ public static void main(String[] args) throws InterruptedException {
 }
 ```
 
+
+### 劫持cookie
+```java
+public static void main(String[] args) throws InterruptedException {
+		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866);
+		CookieCollectFilter cookieCollectFilter = new CookieCollectFilter();
+		remoteMitmproxy.addFlowFilter(cookieCollectFilter);
+		remoteMitmproxy.start();
+	    Thread.sleep(1000 * 60 * 5);
+	    remoteMitmproxy.stop();
+	    for (Cookie cookie : cookieCollectFilter.catchCookies) {
+	    	System.out.println(cookie.getDomain() + ">>>"+ cookie.getName()+"="+cookie.getValue() +" path:"+cookie.getPath());
+	    }
+}
+```
+
 #### 有问题请留言谢谢！
 
