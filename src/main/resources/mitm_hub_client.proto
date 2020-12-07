@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+//把proto文件拷贝到resources根目录，然后项目下执行mvn clean compile生成grpc java代码
+option java_package = "com.deep007.mitmproxyjava";
+option java_outer_classname = "MitmProxyHubClientServerProto";
+option java_multiple_files = true;
+
+package mitm;
+
+
+//MitmProxyHubServer负责启动mitmproxy和通知回调client端
+service MitmProxyHubServer {
+    rpc start(MitmproxyStartRequest) returns (MitmproxyStartResponse) {}
+    rpc stop(MitmproxyStopRequest) returns (VoidResponse) {}
+}
+
+//java、go、c++客户端回调server实现，它接收mitmproxy流量的回调，修改并返回给python端
+service MitmProxyHubClientServer {
+    rpc onMitmRequest(MitmRequest) returns (MitmRequest) {}
+    rpc onMitmResponse(MitmResponse) returns (MitmResponse) {}
+}
+
+message VoidResponse {}
+
+message MitmproxyStartRequest {
+	string bind = 1;
+	int32 port = 2;
+	string callbackServerAddr = 3;
+	int32 callbackServerPort = 4;
+}
+
+message MitmproxyStartResponse {
+	string mitmproxyId = 1;
+}
+
+message MitmproxyStopRequest {
+	string mitmproxyId = 1;
+}
+
+message MitmHeader {
+	string name = 1;
+	string value = 2;
+}
+
+message MitmRequest {
+	string url = 1;
+	string method = 2;
+	repeated MitmHeader headers = 3;
+	bytes content = 4;
+	string mitmproxyId = 5;
+}
+
+message MitmResponse {
+	MitmRequest request = 1;
+	repeated MitmHeader headers = 2;
+    bytes content = 3;
+    int32 statusCode = 4;
+    string mitmproxyId = 5;
+}

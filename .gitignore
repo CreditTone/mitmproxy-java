@@ -1,0 +1,6 @@
+.project
+target/
+.classpath
+.settings/
+.pydevproject
+*__pycache__*
