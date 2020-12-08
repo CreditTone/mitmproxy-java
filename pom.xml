@@ -5,7 +5,9 @@
 	<groupId>com.deep007</groupId>
 	<artifactId>mitmproxy-java</artifactId>
 	<name>mitmproxy-java</name>
-	<version>0.0.1</version>
+	<url>https://github.com/CreditTone/mitmproxy-java</url>
+	<packaging>jar</packaging>
+	<version>1.0</version>
 
 	<licenses>
 		<license>
@@ -208,7 +210,7 @@
 				</configuration>
 			</plugin>
 			<!-- 编译grpc时使用 eg:mvn generate-sources -->
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.xolstice.maven.plugins</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
 				<version>0.6.1</version>
@@ -228,7 +230,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
