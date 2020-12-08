@@ -26,6 +26,15 @@ python3 server.py //server on port 60051
 
 ```
 
+### maven集成mitmproxy-java
+```xml
+<dependency>
+  <groupId>com.deep007</groupId>
+  <artifactId>mitmproxy-java</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
 ### 启动一个remote mitmproxy
 ```java
 public static void main(String[] args) throws InterruptedException {
