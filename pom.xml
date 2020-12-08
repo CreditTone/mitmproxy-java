@@ -27,7 +27,7 @@
 		</connection>
 		<developerConnection>scm:git:git@github.com:CreditTone/mitmproxy-java.git
 		</developerConnection>
-		<url>git@github.com:CreditTone/goniub.git</url>
+		<url>git@github.com:CreditTone/mitmproxy-java.git</url>
 	</scm>
 	<description>基于mitmproxy-hub实现的java版mitmproxy</description>
 
