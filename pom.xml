@@ -209,7 +209,7 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<!-- 编译grpc时使用 eg:mvn generate-sources -->
+			<!-- 编译grpc时使用 eg:mvn generate-sources command:mvn clean compile-->
 			<!-- <plugin>
 				<groupId>org.xolstice.maven.plugins</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
