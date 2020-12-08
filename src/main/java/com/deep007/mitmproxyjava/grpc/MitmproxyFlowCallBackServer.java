@@ -40,7 +40,9 @@ public class MitmproxyFlowCallBackServer {
 	
 	
 	private MitmproxyFlowCallBackServer() throws Exception {
-		this.server = ServerBuilder.forPort(port).addService(new MonitorServerImpl()).build();
+		this.server = ServerBuilder.forPort(port)
+				.addService(new MonitorServerImpl())
+				.build();
 		start();
 	}
 	

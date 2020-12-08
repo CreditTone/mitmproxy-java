@@ -1,6 +1,6 @@
 # 欢迎使用mitmproxy-java
 
-mitmproxy-java是基于mitmproxy-hub实现的java版客户端。你可以像使用原生mitmproxy一样使用它。
+[mitmproxy](https://github.com/mitmproxy/mitmproxy)作为一款出色中间人攻击工具，它在渗透、爬虫、ajax-hook、抓包等场景中表现的相当稳定和出色。但由于原生项目是python的缘故，使得跨语言使用mitmproxy显的非常吃力。经常借助于中间件或单独开发http服务来于mitmproxy进行通信。为此mitmproxy-java基于[mitmproxy-hub](https://github.com/CreditTone/mitmproxy-hub "mitmproxy-hub")实现了java版mitmproxy客户端。你可以像使用原生[mitmproxy](https://github.com/mitmproxy/mitmproxy)一样使用它。
 
 ### 推荐环境
 ```
