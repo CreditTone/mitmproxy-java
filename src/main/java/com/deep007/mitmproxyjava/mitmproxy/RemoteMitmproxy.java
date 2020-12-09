@@ -68,14 +68,20 @@ public class RemoteMitmproxy {
 		filters.add(flowFilter);
 	}
 	
+	public boolean isRunning() {
+		return mitmproxyId != null;
+	}
+	
 	public void stop() {
-		try {
-			MitmproxyStopRequest request = MitmproxyStopRequest.newBuilder().setMitmproxyId(mitmproxyId).build();
-			VoidResponse response = this.mitmProxyHubServerBlockingStub.stop(request);
-		} catch (Exception e) {
-			//e.printStackTrace();
+		if (isRunning()) {
+			try {
+				MitmproxyStopRequest request = MitmproxyStopRequest.newBuilder().setMitmproxyId(mitmproxyId).build();
+				VoidResponse response = this.mitmProxyHubServerBlockingStub.stop(request);
+			} catch (Exception e) {
+				//e.printStackTrace();
+			}
+			RemoteMitmproxies.remove(mitmproxyId);
 		}
-		RemoteMitmproxies.remove(mitmproxyId);
 	}
 	
 	public void onRequest(FlowRequest flowRequest) {
@@ -91,12 +97,33 @@ public class RemoteMitmproxy {
 	}
 	
 
+	public String getRemoteBind() {
+		return remoteBind;
+	}
+
+	public int getRemoteBindPort() {
+		return remoteBindPort;
+	}
+
 	public static void main(String[] args) throws InterruptedException {
 		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866);
 		CookieCollectFilter cookieCollectFilter = new CookieCollectFilter();
 		remoteMitmproxy.addFlowFilter(cookieCollectFilter);
+		remoteMitmproxy.addFlowFilter(new FlowFilter() {
+			
+			@Override
+			public void filterResponse(FlowResponse flowResponse) {
+				flowResponse.getHeaders().remove("Server");
+			}
+			
+			@Override
+			public void filterRequest(FlowRequest flowRequest) {
+				flowRequest.getHeaders().remove("User-Agent");
+				flowRequest.getHeaders().remove("Accept");
+			}
+		});
 		remoteMitmproxy.start();
-	    Thread.sleep(1000 * 60 * 5);
+	    Thread.sleep(1000 * 30);
 	    remoteMitmproxy.stop();
 	    for (Cookie cookie : cookieCollectFilter.catchCookies) {
 	    	System.out.println(cookie.getDomain() + ">>>"+ cookie.getName()+"="+cookie.getValue() +" path:"+cookie.getPath());
