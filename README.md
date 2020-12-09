@@ -1,4 +1,4 @@
-# 欢迎使用mitmproxy-java
+# java版mitmproxy-java
 
 https://github.com/CreditTone/mitmproxy-java
 
