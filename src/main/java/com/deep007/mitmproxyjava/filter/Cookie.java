@@ -110,12 +110,7 @@ public class Cookie {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((domain == null) ? 0 : domain.hashCode());
-		result = prime * result + ((expiry == null) ? 0 : expiry.hashCode());
-		result = prime * result + (httpOnly ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((path == null) ? 0 : path.hashCode());
-		result = prime * result + (secure ? 1231 : 1237);
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -129,29 +124,10 @@ public class Cookie {
 		if (getClass() != obj.getClass())
 			return false;
 		Cookie other = (Cookie) obj;
-		if (domain == null) {
-			if (other.domain != null)
-				return false;
-		} else if (!domain.equals(other.domain))
-			return false;
-		if (expiry == null) {
-			if (other.expiry != null)
-				return false;
-		} else if (!expiry.equals(other.expiry))
-			return false;
-		if (httpOnly != other.httpOnly)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (path == null) {
-			if (other.path != null)
-				return false;
-		} else if (!path.equals(other.path))
-			return false;
-		if (secure != other.secure)
 			return false;
 		if (value == null) {
 			if (other.value != null)
@@ -160,5 +136,5 @@ public class Cookie {
 			return false;
 		return true;
 	}
-	
+
 }

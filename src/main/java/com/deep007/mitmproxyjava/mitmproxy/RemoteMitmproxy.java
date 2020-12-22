@@ -125,7 +125,7 @@ public class RemoteMitmproxy {
 		remoteMitmproxy.start();
 	    Thread.sleep(1000 * 30);
 	    remoteMitmproxy.stop();
-	    for (Cookie cookie : cookieCollectFilter.catchCookies) {
+	    for (Cookie cookie : cookieCollectFilter.catchCookies.values()) {
 	    	System.out.println(cookie.getDomain() + ">>>"+ cookie.getName()+"="+cookie.getValue() +" path:"+cookie.getPath());
 	    }
 	}
