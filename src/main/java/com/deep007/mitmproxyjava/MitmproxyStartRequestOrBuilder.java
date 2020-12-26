@@ -46,4 +46,14 @@ public interface MitmproxyStartRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUpstreamBytes();
+
+  /**
+   * <code>string upstreamAuth = 6;</code>
+   */
+  java.lang.String getUpstreamAuth();
+  /**
+   * <code>string upstreamAuth = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getUpstreamAuthBytes();
 }

@@ -21,6 +21,7 @@ private static final long serialVersionUID = 0L;
     callbackServerAddr_ = "";
     callbackServerPort_ = 0;
     upstream_ = "";
+    upstreamAuth_ = "";
   }
 
   @java.lang.Override
@@ -80,6 +81,12 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             upstream_ = s;
+            break;
+          }
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            upstreamAuth_ = s;
             break;
           }
         }
@@ -226,6 +233,40 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int UPSTREAMAUTH_FIELD_NUMBER = 6;
+  private volatile java.lang.Object upstreamAuth_;
+  /**
+   * <code>string upstreamAuth = 6;</code>
+   */
+  public java.lang.String getUpstreamAuth() {
+    java.lang.Object ref = upstreamAuth_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      upstreamAuth_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string upstreamAuth = 6;</code>
+   */
+  public com.google.protobuf.ByteString
+      getUpstreamAuthBytes() {
+    java.lang.Object ref = upstreamAuth_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      upstreamAuth_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -253,6 +294,9 @@ private static final long serialVersionUID = 0L;
     if (!getUpstreamBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 5, upstream_);
     }
+    if (!getUpstreamAuthBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, upstreamAuth_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -277,6 +321,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!getUpstreamBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, upstream_);
+    }
+    if (!getUpstreamAuthBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, upstreamAuth_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -304,6 +351,8 @@ private static final long serialVersionUID = 0L;
         == other.getCallbackServerPort());
     result = result && getUpstream()
         .equals(other.getUpstream());
+    result = result && getUpstreamAuth()
+        .equals(other.getUpstreamAuth());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -325,6 +374,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getCallbackServerPort();
     hash = (37 * hash) + UPSTREAM_FIELD_NUMBER;
     hash = (53 * hash) + getUpstream().hashCode();
+    hash = (37 * hash) + UPSTREAMAUTH_FIELD_NUMBER;
+    hash = (53 * hash) + getUpstreamAuth().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -464,6 +515,8 @@ private static final long serialVersionUID = 0L;
 
       upstream_ = "";
 
+      upstreamAuth_ = "";
+
       return this;
     }
 
@@ -491,6 +544,7 @@ private static final long serialVersionUID = 0L;
       result.callbackServerAddr_ = callbackServerAddr_;
       result.callbackServerPort_ = callbackServerPort_;
       result.upstream_ = upstream_;
+      result.upstreamAuth_ = upstreamAuth_;
       onBuilt();
       return result;
     }
@@ -548,6 +602,10 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getUpstream().isEmpty()) {
         upstream_ = other.upstream_;
+        onChanged();
+      }
+      if (!other.getUpstreamAuth().isEmpty()) {
+        upstreamAuth_ = other.upstreamAuth_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -832,6 +890,75 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       upstream_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object upstreamAuth_ = "";
+    /**
+     * <code>string upstreamAuth = 6;</code>
+     */
+    public java.lang.String getUpstreamAuth() {
+      java.lang.Object ref = upstreamAuth_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        upstreamAuth_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string upstreamAuth = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUpstreamAuthBytes() {
+      java.lang.Object ref = upstreamAuth_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        upstreamAuth_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string upstreamAuth = 6;</code>
+     */
+    public Builder setUpstreamAuth(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      upstreamAuth_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string upstreamAuth = 6;</code>
+     */
+    public Builder clearUpstreamAuth() {
+      
+      upstreamAuth_ = getDefaultInstance().getUpstreamAuth();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string upstreamAuth = 6;</code>
+     */
+    public Builder setUpstreamAuthBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      upstreamAuth_ = value;
       onChanged();
       return this;
     }

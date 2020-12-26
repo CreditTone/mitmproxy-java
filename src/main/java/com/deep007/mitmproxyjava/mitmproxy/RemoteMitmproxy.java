@@ -35,6 +35,8 @@ public class RemoteMitmproxy {
 	
 	private String upstream;
 	
+	private String upstreamAuth;
+	
 	private volatile String mitmproxyId;
 	
 	private MitmProxyHubServerGrpc.MitmProxyHubServerBlockingStub mitmProxyHubServerBlockingStub;
@@ -42,15 +44,20 @@ public class RemoteMitmproxy {
 	private List<FlowFilter> filters = new ArrayList<>();
 	
 	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort) {
-		this(mitmproxyHubAddr, mitmproxyHubPort, remoteBind, remoteBindPort, null);
+		this(mitmproxyHubAddr, mitmproxyHubPort, remoteBind, remoteBindPort, null, null);
 	}
 	
 	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort, String upstream) {
+		this(mitmproxyHubAddr, mitmproxyHubPort, remoteBind, remoteBindPort, upstream, null);
+	}
+	
+	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort, String upstream, String upstreamAuth) {
 		this.mitmproxyHubAddr = mitmproxyHubAddr;
 		this.mitmproxyHubPort = mitmproxyHubPort;
 		this.remoteBind = remoteBind;
 		this.remoteBindPort = remoteBindPort;
 		this.upstream = upstream;
+		this.upstreamAuth = upstreamAuth;
 	}
 	
 	public synchronized void start() {
@@ -63,6 +70,9 @@ public class RemoteMitmproxy {
 					.setCallbackServerPort(mitmproxyFlowCallBackServer.port);
 			if (this.upstream != null) {
 				builder.setUpstream(upstream);
+			}
+			if (this.upstreamAuth != null) {
+				builder.setUpstreamAuth(upstreamAuth);
 			}
 			Channel channel = ManagedChannelBuilder.forAddress(mitmproxyHubAddr, mitmproxyHubPort).usePlaintext().build();
 			this.mitmProxyHubServerBlockingStub = MitmProxyHubServerGrpc.newBlockingStub(channel);
@@ -115,7 +125,7 @@ public class RemoteMitmproxy {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866, "http://10.115.36.172:9999");
+		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866, "http://http-dyn.abuyun.com:9020", "H889CWY00SVY012D:263445C168FAE095");
 		CookieCollectFilter cookieCollectFilter = new CookieCollectFilter();
 		remoteMitmproxy.addFlowFilter(cookieCollectFilter);
 		remoteMitmproxy.addFlowFilter(new FlowFilter() {

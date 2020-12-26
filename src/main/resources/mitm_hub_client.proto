@@ -28,6 +28,7 @@ message MitmproxyStartRequest {
 	string callbackServerAddr = 3;
 	int32 callbackServerPort = 4;
 	string upstream = 5;
+	string upstreamAuth = 6;
 }
 
 message MitmproxyStartResponse {

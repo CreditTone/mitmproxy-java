@@ -33,4 +33,27 @@ public class XUtils {
 		}
 		return false;
 	}
+	
+	public static boolean isHtml(FlowResponse flowResponse) {
+		String contentType = getContentType(flowResponse);
+		if (contentType.contains("/html") || contentType.contains("/x-html")) {
+			return true;
+		}
+		if (flowResponse.getRequest().getUrl().endsWith(".html") || flowResponse.getRequest().getUrl().endsWith(".htm")) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isImage(FlowResponse flowResponse) {
+		FlowRequest request = flowResponse.getRequest();
+		if (request.getHeader("Accept") != null && request.getHeader("Accept").startsWith("image/")) {
+			return true;
+		}
+		String contentType = getContentType(flowResponse);
+		if (contentType.contains("image/") || contentType.contains("image/")) {
+			return true;
+		}
+		return false;
+	}
 }
