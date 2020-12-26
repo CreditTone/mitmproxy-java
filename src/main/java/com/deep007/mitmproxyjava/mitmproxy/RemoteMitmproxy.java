@@ -33,6 +33,8 @@ public class RemoteMitmproxy {
 	
 	private int remoteBindPort;
 	
+	private String upstream;
+	
 	private volatile String mitmproxyId;
 	
 	private MitmProxyHubServerGrpc.MitmProxyHubServerBlockingStub mitmProxyHubServerBlockingStub;
@@ -40,24 +42,31 @@ public class RemoteMitmproxy {
 	private List<FlowFilter> filters = new ArrayList<>();
 	
 	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort) {
+		this(mitmproxyHubAddr, mitmproxyHubPort, remoteBind, remoteBindPort, null);
+	}
+	
+	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort, String upstream) {
 		this.mitmproxyHubAddr = mitmproxyHubAddr;
 		this.mitmproxyHubPort = mitmproxyHubPort;
 		this.remoteBind = remoteBind;
 		this.remoteBindPort = remoteBindPort;
+		this.upstream = upstream;
 	}
 	
 	public synchronized void start() {
 		if (this.mitmproxyId == null) {
 			MitmproxyFlowCallBackServer mitmproxyFlowCallBackServer = MitmproxyFlowCallBackServer.getInstance();
-			MitmproxyStartRequest request = MitmproxyStartRequest.newBuilder()
+			MitmproxyStartRequest.Builder builder = MitmproxyStartRequest.newBuilder()
 					.setBind(remoteBind)
 					.setPort(remoteBindPort)
 					.setCallbackServerAddr("127.0.0.1")
-					.setCallbackServerPort(mitmproxyFlowCallBackServer.port)
-					.build();
+					.setCallbackServerPort(mitmproxyFlowCallBackServer.port);
+			if (this.upstream != null) {
+				builder.setUpstream(upstream);
+			}
 			Channel channel = ManagedChannelBuilder.forAddress(mitmproxyHubAddr, mitmproxyHubPort).usePlaintext().build();
 			this.mitmProxyHubServerBlockingStub = MitmProxyHubServerGrpc.newBlockingStub(channel);
-			MitmproxyStartResponse response = mitmProxyHubServerBlockingStub.start(request);
+			MitmproxyStartResponse response = mitmProxyHubServerBlockingStub.start(builder.build());
 			this.mitmproxyId = response.getMitmproxyId();
 			RemoteMitmproxies.put(mitmproxyId, this);
 		}
@@ -106,7 +115,7 @@ public class RemoteMitmproxy {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866);
+		RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866, "http://10.115.36.172:9999");
 		CookieCollectFilter cookieCollectFilter = new CookieCollectFilter();
 		remoteMitmproxy.addFlowFilter(cookieCollectFilter);
 		remoteMitmproxy.addFlowFilter(new FlowFilter() {

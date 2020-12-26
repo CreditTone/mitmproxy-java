@@ -20,6 +20,7 @@ private static final long serialVersionUID = 0L;
     port_ = 0;
     callbackServerAddr_ = "";
     callbackServerPort_ = 0;
+    upstream_ = "";
   }
 
   @java.lang.Override
@@ -73,6 +74,12 @@ private static final long serialVersionUID = 0L;
           case 32: {
 
             callbackServerPort_ = input.readInt32();
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            upstream_ = s;
             break;
           }
         }
@@ -185,6 +192,40 @@ private static final long serialVersionUID = 0L;
     return callbackServerPort_;
   }
 
+  public static final int UPSTREAM_FIELD_NUMBER = 5;
+  private volatile java.lang.Object upstream_;
+  /**
+   * <code>string upstream = 5;</code>
+   */
+  public java.lang.String getUpstream() {
+    java.lang.Object ref = upstream_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      upstream_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string upstream = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getUpstreamBytes() {
+    java.lang.Object ref = upstream_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      upstream_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -209,6 +250,9 @@ private static final long serialVersionUID = 0L;
     if (callbackServerPort_ != 0) {
       output.writeInt32(4, callbackServerPort_);
     }
+    if (!getUpstreamBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, upstream_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -230,6 +274,9 @@ private static final long serialVersionUID = 0L;
     if (callbackServerPort_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(4, callbackServerPort_);
+    }
+    if (!getUpstreamBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, upstream_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -255,6 +302,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getCallbackServerAddr());
     result = result && (getCallbackServerPort()
         == other.getCallbackServerPort());
+    result = result && getUpstream()
+        .equals(other.getUpstream());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -274,6 +323,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getCallbackServerAddr().hashCode();
     hash = (37 * hash) + CALLBACKSERVERPORT_FIELD_NUMBER;
     hash = (53 * hash) + getCallbackServerPort();
+    hash = (37 * hash) + UPSTREAM_FIELD_NUMBER;
+    hash = (53 * hash) + getUpstream().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -411,6 +462,8 @@ private static final long serialVersionUID = 0L;
 
       callbackServerPort_ = 0;
 
+      upstream_ = "";
+
       return this;
     }
 
@@ -437,6 +490,7 @@ private static final long serialVersionUID = 0L;
       result.port_ = port_;
       result.callbackServerAddr_ = callbackServerAddr_;
       result.callbackServerPort_ = callbackServerPort_;
+      result.upstream_ = upstream_;
       onBuilt();
       return result;
     }
@@ -491,6 +545,10 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getCallbackServerPort() != 0) {
         setCallbackServerPort(other.getCallbackServerPort());
+      }
+      if (!other.getUpstream().isEmpty()) {
+        upstream_ = other.upstream_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -705,6 +763,75 @@ private static final long serialVersionUID = 0L;
     public Builder clearCallbackServerPort() {
       
       callbackServerPort_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object upstream_ = "";
+    /**
+     * <code>string upstream = 5;</code>
+     */
+    public java.lang.String getUpstream() {
+      java.lang.Object ref = upstream_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        upstream_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string upstream = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUpstreamBytes() {
+      java.lang.Object ref = upstream_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        upstream_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string upstream = 5;</code>
+     */
+    public Builder setUpstream(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      upstream_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string upstream = 5;</code>
+     */
+    public Builder clearUpstream() {
+      
+      upstream_ = getDefaultInstance().getUpstream();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string upstream = 5;</code>
+     */
+    public Builder setUpstreamBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      upstream_ = value;
       onChanged();
       return this;
     }

@@ -36,4 +36,14 @@ public interface MitmproxyStartRequestOrBuilder extends
    * <code>int32 callbackServerPort = 4;</code>
    */
   int getCallbackServerPort();
+
+  /**
+   * <code>string upstream = 5;</code>
+   */
+  java.lang.String getUpstream();
+  /**
+   * <code>string upstream = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getUpstreamBytes();
 }

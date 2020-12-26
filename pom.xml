@@ -7,7 +7,7 @@
 	<name>mitmproxy-java</name>
 	<url>https://github.com/CreditTone/mitmproxy-java</url>
 	<packaging>jar</packaging>
-	<version>1.0.2</version>
+	<version>1.0.4</version>
 
 	<licenses>
 		<license>
