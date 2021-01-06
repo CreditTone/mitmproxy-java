@@ -7,7 +7,7 @@ https://github.com/CreditTone/mitmproxy-java
 ### 原理介绍
 [mitmproxy-hub](https://github.com/CreditTone/mitmproxy-hub "mitmproxy-hub")定义了其他任何语言可以生成的proto3序列化代码，借助于grpc高效的跨进程通信。使得其他语言可以对mitmproxy内部的流量进行无死角的监控。
 
-![mitmproxy-hub架构图](https://opensourcefile.oss-cn-beijing.aliyuncs.com/mitmproxy-hub.png "mitmproxy-hub架构图")
+![mitmproxy-hub架构图](./mitmproxy-hub.png "mitmproxy-hub架构图")
 
 ### 为什么不直接使用browsermob-proxy、LittleProxy等java原生语言开发的mitm代理？
 browsermob-proxy/LittleProxy对于高并发场景下的表现十分不稳定，而且在大文件传输上经常有内存溢出现象。主要是因为两个项目的作者均已在3年前就已经停止更新。本人猜想也许是看到mitmproxy太过于强大，没有继续发展下去的希望。就像google headless一出来phantomjs作者就停止更新一样。而mitmproxy在开源社区一直是高活跃项目，bug等问题修复及时。借用grpc远程控制mitmproxy是一种站在巨人的肩膀上的方法。
