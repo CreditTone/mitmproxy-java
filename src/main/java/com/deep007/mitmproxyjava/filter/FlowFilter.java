@@ -5,8 +5,8 @@ import com.deep007.mitmproxyjava.modle.FlowResponse;
 
 public interface FlowFilter {
 
-	public void filterRequest(FlowRequest flowRequest);
+	public void filterRequest(FlowRequest flowRequest) throws Exception;
 	
-	public void filterResponse(FlowResponse flowResponse);
+	public void filterResponse(FlowResponse flowResponse) throws Exception;
 	
 }

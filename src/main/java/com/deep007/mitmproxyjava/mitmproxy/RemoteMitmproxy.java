@@ -105,13 +105,21 @@ public class RemoteMitmproxy {
 	
 	public void onRequest(FlowRequest flowRequest) {
 		for (FlowFilter flowFilter : filters) {
-			flowFilter.filterRequest(flowRequest);
+			try {
+				flowFilter.filterRequest(flowRequest);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void onResponse(FlowResponse flowResponse) {
 		for (FlowFilter flowFilter : filters) {
-			flowFilter.filterResponse(flowResponse);
+			try {
+				flowFilter.filterResponse(flowResponse);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
