@@ -43,14 +43,39 @@ public class RemoteMitmproxy {
 	
 	private List<FlowFilter> filters = new ArrayList<>();
 	
+	/**
+	 * 启动一个Remote Mitmproxy 
+	 * @param mitmproxyHubAddr mitmproxy-hub服务的ip，不知道mitmproxy-hub是什么请看https://github.com/CreditTone/mitmproxy-hub
+	 * @param mitmproxyHubPort mitmproxy-hub服务的端口 
+	 * @param remoteBind       在mitmproxy-hub这个机器上启动一个mitmproxy实例，告诉它需要绑定的IP。如果是本机的话绑定127.0.0.1即可，如果不是本机绑定0.0.0.0。并在使用的时候注意本机到mitmproxy-hub服务的IP关系。相信稍微有点网络知识不必我再说了吧
+	 * @param remoteBindPort   在mitmproxy-hub这个机器上启动一个mitmproxy实例，告诉它需要绑定的端口
+	 */
 	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort) {
 		this(mitmproxyHubAddr, mitmproxyHubPort, remoteBind, remoteBindPort, null, null);
 	}
 	
+	/**
+	 * 启动一个Remote Mitmproxy
+	 * @param mitmproxyHubAddr 
+	 * @param mitmproxyHubPort
+	 * @param remoteBind
+	 * @param remoteBindPort
+	 * @param upstream  启动远端mitmproxy实例的同时设置一个上游的http代理 格式如:http://http-dyn.abuyun.com:9020、http://192.168.0.101:8080。类似命令：mitmdump --mode upstream:http://192.168.0.101:8080，还不了解自己去了解https://docs.mitmproxy.org/archive/v5/concepts-modes/#upstream-proxy
+	 */
 	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort, String upstream) {
 		this(mitmproxyHubAddr, mitmproxyHubPort, remoteBind, remoteBindPort, upstream, null);
 	}
 	
+	/**
+	 * 例如：RemoteMitmproxy remoteMitmproxy = new RemoteMitmproxy("127.0.0.1", 60051, "127.0.0.1", 8866, "http://http-dyn.abuyun.com:9020", "H889CWY00SVY012D:263445C168FAE095");
+	 * 
+	 * @param mitmproxyHubAddr
+	 * @param mitmproxyHubPort
+	 * @param remoteBind
+	 * @param remoteBindPort
+	 * @param upstream  启动远端mitmproxy实例的同时设置一个上游的http代理 格式如:http://http-dyn.abuyun.com:9020、http://192.168.0.101:8080
+	 * @param upstreamAuth  如果上游的http代理有验证，则设置。 格式：H889CWY00SVY012D:263445C168FAE095
+	 */
 	public RemoteMitmproxy(String mitmproxyHubAddr, int mitmproxyHubPort, String remoteBind, int remoteBindPort, String upstream, String upstreamAuth) {
 		this.mitmproxyHubAddr = mitmproxyHubAddr;
 		this.mitmproxyHubPort = mitmproxyHubPort;
