@@ -12,6 +12,9 @@ https://github.com/CreditTone/mitmproxy-java
 ### 为什么不直接使用browsermob-proxy、LittleProxy等java原生语言开发的mitm代理？
 browsermob-proxy/LittleProxy对于高并发场景下的表现十分不稳定，而且在大文件传输上经常有内存溢出现象。主要是因为两个项目的作者均已在3年前就已经停止更新。本人猜想也许是看到mitmproxy太过于强大，没有继续发展下去的希望。就像google headless一出来phantomjs作者就停止更新一样。而mitmproxy在开源社区一直是高活跃项目，bug等问题修复及时。借用grpc远程控制mitmproxy是一种站在巨人的肩膀上的方法。
 
+### MitmproxyFlowCallBackServer 
+mitmproxy通过grpc回调回来的flows是通过MitmproxyFlowCallBackServer启动的grpc server来回调的。MitmproxyFlowCallBackServer.getInstance()可获取默认实例。当然你也可以通过public MitmproxyFlowCallBackServer(int port)构造方法创建自定义端口的实例，但请注意维护好其生命周期。
+
 
 ### 推荐环境
 ```

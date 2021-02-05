@@ -1,9 +1,6 @@
 package com.deep007.mitmproxyjava.grpc;
 
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +18,11 @@ public class MitmproxyFlowCallBackServer {
 	
 	private volatile static MitmproxyFlowCallBackServer mitmFlowCallBackServer;
 	
+	/**
+	 * 获取默认的MitmproxyFlowCallBackServer实例，默认的实例启动在60061端口上。如果你想启动在其他端口请使用MitmproxyFlowCallBackServer(int port)构造方法创建
+	 * 并注意维护其生命周期
+	 * @return
+	 */
 	public synchronized static MitmproxyFlowCallBackServer getInstance() {
 		if (mitmFlowCallBackServer == null) {
 			try {
@@ -34,12 +36,17 @@ public class MitmproxyFlowCallBackServer {
 	
 	private Server server;
 	
-	public final int port = 60061;
+	public final int port;
 	
 	private boolean isStarted = false;
 	
+	public MitmproxyFlowCallBackServer() throws Exception {
+		this(60061);
+	}
 	
-	private MitmproxyFlowCallBackServer() throws Exception {
+	
+	public MitmproxyFlowCallBackServer(int port) throws Exception {
+		this.port = port;
 		this.server = ServerBuilder.forPort(port)
 				.addService(new MonitorServerImpl())
 				.build();
