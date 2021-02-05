@@ -37,7 +37,7 @@ python3 server.py //server on port 60051
 <dependency>
   <groupId>com.deep007</groupId>
   <artifactId>mitmproxy-java</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
 </dependency>
 ```
 
